@@ -1,0 +1,103 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2511
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green116\blue0;\red255\green255\blue255;\red74\green85\blue96;
+\red0\green0\blue0;\red170\green13\blue145;\red15\green104\blue160;\red63\green110\blue116;\red38\green71\blue75;
+\red92\green38\blue153;\red46\green13\blue110;\red196\green26\blue22;\red28\green0\blue207;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c45600\c0;\csgenericrgb\c100000\c99997\c99999;\csgenericrgb\c29020\c33333\c37647;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c5882\c40784\c62745;\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c14900\c27800\c29400;
+\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c18100\c5200\c43100;\csgenericrgb\c77000\c10200\c8600;\csgenericrgb\c11000\c0\c81000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww26300\viewh13740\viewkind0
+\deftab692
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 //MARK:
+\f1\b \cf4 - Google Sign in.
+\f0\b0 \cf5 \
+    \cf6 func\cf5  \cf7 loginByGoogle\cf5 () \{\
+        \
+        \cf8 GoogleAuthorizationController\cf5 .\cf8 default\cf5 .\cf8 viewController\cf5  = \cf6 self\cf5 \
+        \cf8 GoogleAuthorizationController\cf5 .\cf8 default\cf5 .\cf9 loginWithGoogle\cf5 ()\
+        \cf8 GoogleAuthorizationController\cf5 .\cf8 default\cf5 .\cf8 googleLoginCompletion\cf5  = \{\
+            (userDetail, status) -> \cf10 Void\cf5  \cf6 in\cf5 \
+            \cf6 if\cf5  status \cf11 ==\cf5  \cf6 true\cf5  \{\
+                \cf11 print\cf5 (\cf12 "Google Login ID:\cf5 \\(userDetail?.\cf8 id\cf5  ?? \cf12 ""\cf5 )\cf12 "\cf5 )\
+                \cf6 self\cf5 .\cf8 objSocialLoginViewModel\cf5 .\cf9 checkSocialUser\cf5 (socialId: userDetail?.\cf8 id\cf5  ?? \cf12 ""\cf5 , socialType: \cf8 LoginType\cf5 .\cf9 google\cf5 .\cf8 rawValue\cf5 ) \{ (success, isExist, error) \cf6 in\cf5 \
+                    \cf6 if\cf5  (success \cf11 ==\cf5  \cf6 true\cf5 ) \{\
+                        \cf6 if\cf5  isExist \cf11 ==\cf5  \cf6 true\cf5  \{\
+                            \cf6 self\cf5 .\cf9 moveToDashboard\cf5 ()\
+                        \} \cf6 else\cf5  \{\
+                            \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 id\cf5        = userDetail?.\cf8 id\cf5  ?? \cf12 ""\cf5 \
+                            \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 name\cf5      = (userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5  \cf11 !=\cf5  \cf12 ""\cf5 ) ? ((userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5 ) \cf11 +\cf5  (userDetail?.\cf8 lastName\cf5  ?? \cf12 ""\cf5 ) ) : userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5 \
+                            \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 email\cf5     = userDetail?.\cf8 email\cf5  ?? \cf12 ""\cf5 \
+                            \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 type\cf5      = \cf8 SocialType\cf5 .\cf9 Apple\cf5 .\cf8 rawValue\cf5 \
+                            \cf6 self\cf5 .\cf8 loginType\cf5  = .\cf9 google\cf5 \
+                            \cf6 self\cf5 .\cf9 moveToRegistration\cf5 ()\
+                        \}\
+                    \}\
+                \}\
+            \}\
+        \}\
+    \}\
+\
+\
+\cf2 //MARK:
+\f1\b \cf4 - Sign in with Apple.
+\f0\b0 \cf5 \
+\
+\cf6 func\cf5  \cf7 setView\cf5 () \{\
+        \
+        \cf6 if\cf5  \cf6 #available\cf5 (\cf6 iOS\cf5  \cf13 \cb3 13.0\cf5 \cb3 , *) \{\
+            \cf6 self\cf5 .\cf8 appleView\cf5 .\cf10 isHidden\cf5  = \cf6 false\cf5 \
+            \cf6 self\cf5 .\cf9 setupView\cf5 ()\
+        \} \cf6 else\cf5  \{\
+            \cf2 // Fallback on earlier versions\cf5 \
+            \cf6 self\cf5 .\cf8 appleView\cf5 .\cf10 isHidden\cf5  = \cf6 true\cf5 \
+        \}\
+    \}\
+\
+\
+\cf6 @available\cf5 (\cf6 iOS\cf5  \cf13 \cb3 13.0\cf5 \cb3 , *)\
+    \cf6 func\cf5  \cf7 setupView\cf5 () \{\
+        \cf6 let\cf5  appleButton = \cf10 ASAuthorizationAppleIDButton\cf5 ()\
+        appleButton.\cf10 translatesAutoresizingMaskIntoConstraints\cf5  = \cf6 false\cf5 \
+        appleButton.\cf11 addTarget\cf5 (\cf6 self\cf5 , action: \cf6 #selector\cf5 (\cf9 didTapAppleButton\cf5 ), for: .\cf10 touchUpInside\cf5 )\
+        \cf6 self\cf5 .\cf8 appleView\cf5 .\cf11 addSubview\cf5 (appleButton)\
+        \cf10 NSLayoutConstraint\cf5 .\cf11 activate\cf5 ([\
+            appleButton.\cf10 centerYAnchor\cf5 .\cf11 constraint\cf5 (equalTo: \cf6 self\cf5 .\cf8 appleView\cf5 .\cf10 centerYAnchor\cf5 ),\
+            appleButton.\cf10 leadingAnchor\cf5 .\cf11 constraint\cf5 (equalTo: \cf6 self\cf5 .\cf8 appleView\cf5 .\cf10 leadingAnchor\cf5 ,constant: \cf13 \cb3 0\cf5 \cb3 ),\
+            appleButton.\cf10 trailingAnchor\cf5 .\cf11 constraint\cf5 (equalTo: \cf6 self\cf5 .\cf8 appleView\cf5 .\cf10 trailingAnchor\cf5 , constant: \cf13 \cb3 0\cf5 \cb3 ),\
+            appleButton.\cf10 heightAnchor\cf5 .\cf11 constraint\cf5 (equalToConstant: \cf13 \cb3 60\cf5 \cb3 )\
+        ])\
+        appleButton.\cf10 layer\cf5 .\cf10 masksToBounds\cf5  = \cf6 true\cf5 \
+        appleButton.\cf10 layer\cf5 .\cf10 cornerRadius\cf5  = \cf13 \cb3 30\cf5 \cb3  \cf2 //appleButton.frame.height / 2.0\cf5 \
+    \}\
+\
+\
+\cf2 //MARK:
+\f1\b \cf4 - Sign In With Apple. Apple Login
+\f0\b0 \cf5 \
+    \cf6 @objc\cf5 \
+    \cf6 @available\cf5 (\cf6 iOS\cf5  \cf13 \cb3 13.0\cf5 \cb3 , *)\
+    \cf6 func\cf5  \cf7 didTapAppleButton\cf5 () \{\
+        \cf2 //print("Apple login...")\cf5 \
+        \cf8 AppleAuthorizationController\cf5 .\cf8 default\cf5 .\cf9 signIn\cf5 ()\
+        \cf8 AppleAuthorizationController\cf5 .\cf8 default\cf5 .\cf8 signInWithAppleCompletion\cf5  = \{\
+            (userDetail, status) -> \cf10 Void\cf5  \cf6 in\cf5 \
+            \cf2 //print("Sign In Apple ID:\\(userDetail?.id ?? "")")\cf5 \
+            \cf6 self\cf5 .\cf8 objSocialLoginViewModel\cf5 .\cf9 checkSocialUser\cf5 (socialId: userDetail?.\cf8 id\cf5  ?? \cf12 ""\cf5 , socialType: \cf8 LoginType\cf5 .\cf9 apple\cf5 .\cf8 rawValue\cf5 , isRegister : \cf6 true\cf5 ) \{ (success, isExist, error) \cf6 in\cf5 \
+                \cf6 if\cf5  (success \cf11 ==\cf5  \cf6 true\cf5 ) \{\
+                    \cf6 if\cf5  isExist \cf11 ==\cf5  \cf6 true\cf5  \{\
+                        \cf8 CCController\cf5 .\cf8 sharedInstance\cf5 .\cf9 showToastMesage\cf5 (_sourceController: \cf6 self\cf5 , _msg: \cf12 "User already exist."\cf5 )\
+                    \} \cf6 else\cf5  \{\
+                        \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 id\cf5        = userDetail?.\cf8 id\cf5  ?? \cf12 ""\cf5 \
+                        \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 name\cf5      = (userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5  \cf11 !=\cf5  \cf12 ""\cf5 ) ? ((userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5 ) \cf11 +\cf5  (userDetail?.\cf8 lastName\cf5  ?? \cf12 ""\cf5 ) ) : userDetail?.\cf8 firstName\cf5  ?? \cf12 ""\cf5 \
+                        \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 email\cf5     = userDetail?.\cf8 email\cf5  ?? \cf12 ""\cf5 \
+                        \cf6 self\cf5 .\cf8 objSocial\cf5 .\cf8 type\cf5      = \cf8 SocialType\cf5 .\cf9 Apple\cf5 .\cf8 rawValue\cf5 \
+                        \cf6 self\cf5 .\cf8 loginType\cf5  = .\cf9 apple\cf5 \
+                        \cf6 self\cf5 .\cf9 moveToRegistration\cf5 ()\
+                    \}\
+                \}\
+            \}\
+        \}\
+    \}\
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>283144944495-i4n5msmg6b1rhvcbbknb5c4a4jh278mo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.283144944495-i4n5msmg6b1rhvcbbknb5c4a4jh278mo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBn8oKSveibn0A3W2wodfTtw9UtYPBPvy4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>997916410200</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.SandyEnterprise.ccMessenger</string>
+	<key>PROJECT_ID</key>
+	<string>cc-messenger-app-1e83f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cc-messenger-app-1e83f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:997916410200:ios:e83d4bbd1bb7d8fb</string>
+	<key>DATABASE_URL</key>
+	<string>https://cc-messenger-app-1e83f.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-7510857614648560~9616841973</string>
+</dict>
+</plist>
